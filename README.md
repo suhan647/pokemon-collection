@@ -134,48 +134,4 @@ app/
 npm run dev      # Start development server
 npm run build    # Build for production
 npm run start    # Start production server
-npm run lint     # Run ESLint
 ```
-
-### Environment Variables
-
-No environment variables required - the app uses public APIs.
-
-## 🎨 Customization
-
-### Styling
-- Modify `app/globals.css` for global styles
-- Update Tailwind classes in components for component-specific styling
-- Pokemon type colors are defined in `app/services/pokemonApi.ts`
-
-### Adding Features
-- New components can be added to `app/components/`
-- API services can be extended in `app/services/`
-- Types can be added to `app/types/`
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **PokeAPI**: For providing the Pokemon data
-- **@dnd-kit**: For the modern drag and drop functionality
-- **TanStack**: For React Query
-- **Vercel**: For the amazing Next.js framework
-
-## 📞 Support
-
-If you have any questions or need help, please open an issue on GitHub.
-
----
-
-**Made with ❤️ and lots of Pokemon!**
