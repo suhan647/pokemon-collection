@@ -247,12 +247,12 @@ export function PokemonCollection({ onCollectionChange }: PokemonCollectionProps
           <p className="text-sm sm:text-base text-gray-600 mb-8 leading-relaxed">
             Start discovering Pokemon and add them to your collection! Your collection will be saved automatically and you can reorder them with drag and drop.
           </p>
-          <button
+          {/* <button
             onClick={() => window.location.reload()}
             className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 sm:px-8 py-3 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Discover Pokemon
-          </button>
+          </button> */}
         </div>
       </div>
     );

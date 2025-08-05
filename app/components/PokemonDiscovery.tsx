@@ -2,7 +2,7 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { pokemonApi } from '../services/pokemonApi';
 import { PokemonCard } from './PokemonCard';
 import { Pokemon } from '../types/pokemon';
@@ -31,12 +31,13 @@ export function PokemonDiscovery({ onCollectionChange }: PokemonDiscoveryProps) 
     isLoading,
     isError,
     error,
+    isFetching,
   } = useInfiniteQuery({
     queryKey: ['pokemon-list'],
     queryFn: async ({ pageParam = 0 }) => {
       try {
         const response = await pokemonApi.getPokemonList(pageParam, 6);
-        const pokemonNames = response.results.map(p => p.name);
+        const pokemonNames = response.results.map((p: { name: string }) => p.name);
         const pokemonData = await pokemonApi.getPokemonBatch(pokemonNames);
         return {
           pokemon: pokemonData,
@@ -44,15 +45,16 @@ export function PokemonDiscovery({ onCollectionChange }: PokemonDiscoveryProps) 
         };
       } catch (error) {
         console.error('Error fetching Pokemon:', error);
-        throw error;
+        throw new Error('Failed to fetch Pokémon data. Please try again later.');
       }
     },
     getNextPageParam: (lastPage) => lastPage.nextOffset,
     initialPageParam: 0,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 10 * 60 * 1000, // 10 minutes
-    retry: 3,
-    retryDelay: 1000,
+    staleTime: 5 * 60 * 1000, // 5 minutes before data becomes stale
+    gcTime: 30 * 60 * 1000, // Keep unused/inactive data in cache for 30 minutes
+    retry: 2, // Retry failed requests 2 times
+    retryDelay: (attemptIndex: number) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
+    refetchOnWindowFocus: false, // Don't refetch when window regains focus
   });
 
   // Simplified effect to prevent infinite calls
